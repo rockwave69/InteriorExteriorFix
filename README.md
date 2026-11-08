@@ -2,7 +2,7 @@
 
 Fixes outdoor static geometry disappearing when entering interiors located in the main game world.
 
-![Demo](screens/screen%20(1).jpg)
+![Demo](screens/screen%20(1).png)
 
 ## How it works
 
