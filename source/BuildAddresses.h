@@ -1,7 +1,6 @@
 #pragma once
 #include <cstdint>
 
-// Absolute addresses taken from the supplied GTA SA reverse source.
 // The plugin resolves them as RVAs relative to the preferred 0x400000 image base.
 // Target: GTA San Andreas PC 1.0 US, x86 only.
 namespace SA10US {
