@@ -38,11 +38,9 @@ namespace {
     constexpr std::size_t kMaxPtrListTraversal = 65536;
     constexpr std::uintptr_t kHighestHookAddress = SA10US::kRendererShouldStream;
 
-    // ABI-only view of GTA SA CPtrList/CPtrNode. The reverse-engineered x86
-    // layout is: CPtrList { CPtrNode* m_pHead; } and CPtrNode
-    // { void* m_pVoid; CPtrNode* m_pNext; }. We intentionally do not access
-    // SDK C++ members/accessors here because Plugin-SDK distributions expose
-    // different declarations (and may make the fields protected).
+    // Local 32-bit view of the pointer-list header and link node used by the
+    // supported executable. Keep these fields private to this plugin
+    // instead of relying on SDK member names or access modifiers.
     struct CPtrNodeAbi {
         void* pEntity;
         CPtrNodeAbi* pNext;
@@ -386,8 +384,8 @@ namespace {
         if (repeatSector) {
             CPtrList* repeatObjects = &repeatSector->m_lists[REPEATSECTOR_OBJECTS];
             if (rendererScanSemantics) {
-                // CRenderer::ConstructPtrList scans the whole repeat-sector bucket and
-                // marks scan codes before its Area Code test. Match that order exactly:
+                // The native render pass scans the complete repeat-sector bucket and marks
+                // scan codes before its area test. Preserve that order exactly:
                 // an alias may be encountered before the sector matching its real bounds.
                 // Native frustum/visibility and distance checks still decide rendering.
                 batch.AddList(repeatObjects);
