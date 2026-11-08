@@ -2,6 +2,8 @@
 
 Fixes outdoor static geometry disappearing when entering interiors located in the main game world.
 
+![Demo](screens/screen%20(1).jpg)
+
 ## How it works
 
 The plugin temporarily applies the current Area Code to eligible outdoor static entities while the game's Renderer and Streaming checks run, then restores their original Area Code. It also requests outdoor IPLs and processes the exterior model ring beyond the game's native streaming radius.
